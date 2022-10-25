@@ -1,24 +1,41 @@
-import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import SectionHeader from '../SectionHeader';
+import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import SectionHeader from "../SectionHeader";
 
 type Props = {
   opened: boolean;
   onClose: () => void;
   title?: string;
-}
-export default function Modal({ opened, onClose, title }: Props) {
-
+  description?: string;
+  children: React.ReactNode;
+};
+export default function Modal({
+  opened,
+  onClose,
+  title,
+  description,
+  children,
+}: Props) {
   if (!opened) return null;
 
   return (
-    <div onClick={onClose} className="fixed inset-0 backdrop-blur-lg flex items-stretch justify-end">
-      <div onClick={e => e.stopPropagation()} className="rounded-t-xl shadow-lg">
-        <div className="flex items-center justify-between">
-          <SectionHeader title={title ?? ''} />
-          <FontAwesomeIcon icon="times" />
+    <div
+      onClick={onClose}
+      className="fixed inset-0 z-50 backdrop-blur-lg flex flex-col items-stretch justify-end"
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className="rounded-t-xl shadow-lg bg-primary px-2"
+      >
+        <div className="flex items-center justify-between pb-4">
+          <div className="flex flex-col items-center justify-center">
+            <SectionHeader title={title ?? ""} />
+            {description && <span className="text-xs">{description}</span>}
+          </div>
+          <FontAwesomeIcon icon="times" onClick={onClose} />
         </div>
+        {children}
       </div>
     </div>
-  )
+  );
 }
