@@ -25,9 +25,9 @@ export default function Modal({
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="rounded-t-xl shadow-lg bg-primary px-2"
+        className="rounded-t-xl shadow-lg bg-background-secondary px-2"
       >
-        <div className="flex items-center justify-between pb-4">
+        <div className="flex items-center justify-between">
           <div className="flex flex-col items-center justify-center">
             <SectionHeader title={title ?? ""} />
             {description && <span className="text-xs">{description}</span>}

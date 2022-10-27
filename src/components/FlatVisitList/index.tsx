@@ -8,10 +8,9 @@ type Props = {
   date: number;
 };
 export default function FlatVisitList({ date }: Props) {
-  const appointmentsOfDay = useLiveQuery(() => {
-    return ContactDomain.contacts
+  const appointmentsOfDay = useLiveQuery(async () => {
+    return (await ContactDomain.getContacts())
       .filter((contact) => isSameDay(contact.contactedAt, date))
-      .toArray();
   }, [date]);
 
   return (

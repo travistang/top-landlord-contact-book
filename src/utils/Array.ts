@@ -3,6 +3,8 @@ export const range = (n: number, step = 1) =>
     .fill(0)
     .map((_, i) => i * step);
 
+export const distinct = <T>(items: T[]) => Array.from(new Set(items));
+
 export const diff = <T>(
   before: T[],
   after: T[],

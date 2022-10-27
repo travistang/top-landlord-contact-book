@@ -23,8 +23,8 @@ class DexieContactDomain
 
   constructor() {
     super("landlordContactDatabase");
-    this.version(1).stores({
-      contacts: "++id,adTitle,address",
+    this.version(3).stores({
+      contacts: "++id,adTitle,address,contactedAt,myRating,status",
     });
   }
 
@@ -60,11 +60,12 @@ class DexieContactDomain
     if (!existingData) {
       return;
     }
-    await this.contacts.update(id, data);
-    const updatedData = {
+    const updatedData: WithId<Contact> = {
       ...existingData,
       ...data,
+      updatedAt: Date.now(),
     };
+    await this.contacts.update(id, updatedData);
     this.notify(ContactDomainEvent.ContactUpdated, updatedData);
   }
 

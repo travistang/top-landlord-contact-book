@@ -1,21 +1,27 @@
 import React from "react";
-import { differenceInDays } from "date-fns";
+import { useSetRecoilState } from 'recoil';
+import { format } from "date-fns";
 import { Contact } from "../../types/Contact";
 import { WithId } from "../../types/utils";
+import { createEditContactAtom } from "../../atoms/createEditContactAtom";
 
 type Props = {
   contact: WithId<Contact>;
 };
 
 export default function ContactSummary({ contact }: Props) {
-  const createdDayText = `Contacted at ${differenceInDays(
-    contact.contactedAt,
-    Date.now()
-  )}`;
-  const { offer, adTitle, landlord } = contact;
+  const setCreateEditContact = useSetRecoilState(createEditContactAtom);
+  const { offer, adTitle, landlord, contactedAt } = contact;
+  const createdDayText = `Contacted at ${format(contactedAt, 'MM-dd')}`;
+
+  const editRecord = () => {
+    setCreateEditContact(contact);
+  }
   return (
-    <div className="flex flex-row rounded-lg shadow-lg bg-font bg-opacity-20">
-      <div className="flex flex-col gap-2">
+    <div
+      onClick={editRecord}
+      className="flex flex-row rounded-lg shadow-lg bg-font bg-opacity-5 p-2">
+      <div className="flex flex-col">
         <span className="text-xs text-font text-opacity-80">
           {createdDayText}
         </span>

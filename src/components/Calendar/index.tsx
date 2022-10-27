@@ -13,8 +13,8 @@ import  { eachDaysOfMonth } from "../../utils/Date";
 import DayCell from "./DayCell";
 
 type Props = {
-  date: Date | number;
-  selectedDate?: Date;
+  date: number;
+  markedDates: number[];
   onSelectDate?: (date: number) => void;
   className?: string;
 };
@@ -22,7 +22,6 @@ type Props = {
 export default function Calendar({
   date,
   className,
-  selectedDate,
   onSelectDate,
 }: Props) {
   const now = Date.now();
@@ -51,7 +50,7 @@ export default function Calendar({
           key={day.getTime()}
           date={day}
           onSelect={() => onSelectDate?.(day.getTime())}
-          selected={selectedDate && isSameDay(selectedDate, day)}
+          selected={isSameDay(date, day)}
         />
       ))}
     </div>

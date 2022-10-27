@@ -1,4 +1,4 @@
-import { eachDayOfInterval, startOfMonth, endOfMonth } from 'date-fns';
+import { eachDayOfInterval, startOfMonth, endOfMonth, format } from 'date-fns';
 
 export const eachDaysOfMonth = (day: Date | number) => {
   return eachDayOfInterval({
@@ -7,3 +7,6 @@ export const eachDaysOfMonth = (day: Date | number) => {
   });
 };
 
+export const toDateInputFormat = (date: number) => {
+  return format(date, "yyyy-MM-dd");
+}

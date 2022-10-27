@@ -22,6 +22,7 @@ export type Contact = {
   adTitle: string;
   offer: Offer;
   contactedAt: number;
+  updatedAt: number;
   visitingAppointment?: number;
   remarks?: string;
   requiredDocuments: string[];

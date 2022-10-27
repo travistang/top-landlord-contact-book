@@ -1,6 +1,7 @@
 import { atom, useRecoilState, useSetRecoilState } from "recoil";
 import { Contact, ContactRating, ContactStatus } from "../types/Contact";
-import { WithId } from "../types/utils";
+import { KeyPaths, WithId } from "../types/utils";
+import { deepUpdate } from "../utils/Object";
 
 export type CreateEditContactAtomType = Partial<WithId<Contact>> | null;
 
@@ -22,12 +23,15 @@ export const useCreateContact = () => {
       adTitle: "",
       url: "",
       contactedAt: Date.now(),
+      updatedAt: Date.now(),
       requiredDocuments: [],
       status: ContactStatus.Pending,
       myRating: ContactRating.Neutral,
       landlord: {
         firstName: "",
         lastName: "",
+        phoneNumber: "",
+        email: "",
         salutation: "Mr.",
       },
       offer: {
@@ -41,14 +45,12 @@ export const useCreateContact = () => {
     });
   };
 };
+
 export const useSetContactAtomValue = () => {
   const [, setAtomValue] = useRecoilState(createEditContactAtom);
 
-  return <T extends keyof Contact>(field: T) =>
-    (value: Contact[T]) => {
-      setAtomValue((atomValue) => ({
-        ...atomValue,
-        [field]: value,
-      }));
+  return (field: KeyPaths<CreateEditContactAtomType>) =>
+    (value: any) => {
+      setAtomValue((atomValue) => deepUpdate(atomValue, field, value));
     };
 };
