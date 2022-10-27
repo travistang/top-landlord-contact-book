@@ -25,7 +25,6 @@ export default function App() {
     );
     return distinct(dayStartOfContacts);
   }, [selectedDate]);
-  console.log({ datesWithAppointments, selectedDate });
   return (
     <div className="bg-background fixed inset-0 flex flex-col items-stretch">
       <Header />

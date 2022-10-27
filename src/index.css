@@ -3,8 +3,9 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: 'Montserrat';
-  src: local('Montserrat Regular'), url(./fonts/Montserrat/Montserrat-Regular.ttf) format('truetype');
+  font-family: "Montserrat";
+  src: local("Montserrat Regular"),
+    url(./fonts/Montserrat/Montserrat-Regular.ttf) format("truetype");
 }
 
 @layer base {
@@ -16,9 +17,10 @@
     --color-text: 229 229 229;
     --color-accent: 254 215 102;
     --color-success: 76 181 67;
+    --color-error: 225 46 75;
   }
 
-  [data-theme='light'] {
+  [data-theme="light"] {
     --color-primary: 0 159 183;
     --color-secondary: 105 103 115;
     --color-background: 239 241 243;
@@ -26,12 +28,13 @@
     --color-text: 39 39 39;
     --color-accent: 254 215 102;
     --color-success: 76 181 67;
+    --color-error: 225 46 75;
   }
 }
 
 * {
   @apply text-font;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 button {
