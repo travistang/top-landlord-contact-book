@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { startOfMonth, endOfMonth } from 'date-fns';
-import { useLiveQuery } from 'dexie-react-hooks';
-import { Toaster } from 'react-hot-toast';
+import { startOfMonth, endOfMonth, startOfDay } from "date-fns";
+import { useLiveQuery } from "dexie-react-hooks";
+import { Toaster } from "react-hot-toast";
 import Calendar from "./components/Calendar";
 import Header from "./components/Header";
 import SectionHeader from "./components/SectionHeader";
@@ -13,11 +13,17 @@ import { distinct } from "./utils/Array";
 export default function App() {
   const [selectedDate, setSelectedDate] = useState(Date.now());
   const datesWithAppointments = useLiveQuery(async () => {
-    const contacts = await ContactDomain.contacts.where('contactedAt').between(
-      startOfMonth(selectedDate),
-      endOfMonth(selectedDate),
-    ).toArray();
-    return distinct(contacts.map(con => con.contactedAt));
+    const contacts = await ContactDomain.contacts
+      .where("contactedAt")
+      .between(
+        startOfMonth(selectedDate).getTime(),
+        endOfMonth(selectedDate).getTime()
+      )
+      .toArray();
+    const dayStartOfContacts = contacts.map((contact) =>
+      startOfDay(contact.contactedAt).getTime()
+    );
+    return distinct(dayStartOfContacts);
   }, [selectedDate]);
   console.log({ datesWithAppointments, selectedDate });
   return (

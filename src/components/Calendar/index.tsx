@@ -6,10 +6,11 @@ import {
   startOfMonth,
   getDay,
   isSameDay,
+  startOfDay,
 } from "date-fns";
 import React from "react";
 import { range } from "../../utils/Array";
-import  { eachDaysOfMonth } from "../../utils/Date";
+import { eachDaysOfMonth } from "../../utils/Date";
 import DayCell from "./DayCell";
 
 type Props = {
@@ -22,6 +23,7 @@ type Props = {
 export default function Calendar({
   date,
   className,
+  markedDates,
   onSelectDate,
 }: Props) {
   const now = Date.now();
@@ -47,9 +49,10 @@ export default function Calendar({
         range(monthStartsAtWeekday).map((i) => <span key={i} />)}
       {daysInMonth.map((day) => (
         <DayCell
-          key={day.getTime()}
+          key={day}
           date={day}
-          onSelect={() => onSelectDate?.(day.getTime())}
+          marked={markedDates.includes(startOfDay(day).getTime())}
+          onSelect={() => onSelectDate?.(day)}
           selected={isSameDay(date, day)}
         />
       ))}
