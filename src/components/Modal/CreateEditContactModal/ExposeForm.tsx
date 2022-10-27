@@ -19,7 +19,7 @@ export default function ExposeForm() {
 
   const getField = (field: KeyPaths<Contact>) =>
     getByKeyPath(createEditContactValue, field);
-  console.log({ createEditContactValue });
+
   return (
     <div className="grid grid-cols-6 gap-2">
       <TextInput
