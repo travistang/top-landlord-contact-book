@@ -13,17 +13,18 @@ import { distinct } from "./utils/Array";
 export default function App() {
   const [selectedDate, setSelectedDate] = useState(Date.now());
   const datesWithAppointments = useLiveQuery(async () => {
-    const contacts = await ContactDomain.contacts
-      .where("contactedAt")
-      .between(
-        startOfMonth(selectedDate).getTime(),
-        endOfMonth(selectedDate).getTime()
-      )
+    const monthStart = startOfMonth(selectedDate).getTime();
+    const monthEnd = endOfMonth(selectedDate).getTime();
+    const contacts = await ContactDomain.contacts.filter(contact => {
+      const appointmentTime = contact.appointment?.time;
+      if (!appointmentTime) return false;
+      return monthStart <= appointmentTime && appointmentTime <= monthEnd;
+    })
       .toArray();
-    const dayStartOfContacts = contacts.map((contact) =>
-      startOfDay(contact.contactedAt).getTime()
+    const appointmentDates = contacts.map((contact) =>
+      startOfDay(contact.appointment!.time).getTime()
     );
-    return distinct(dayStartOfContacts);
+    return distinct(appointmentDates);
   }, [selectedDate]);
   return (
     <div className="bg-background fixed inset-0 flex flex-col items-stretch">

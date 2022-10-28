@@ -11,6 +11,7 @@ import {
   faFaceGrinWide,
   faFaceLaughBeam,
   faTrash,
+  faEye
 } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
 
@@ -27,7 +28,8 @@ const loadAllIcons = () =>
     faFaceMehBlank,
     faFaceGrinWide,
     faFaceLaughBeam,
-    faTrash
+    faTrash,
+    faEye
   );
 
 export default loadAllIcons;

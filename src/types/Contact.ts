@@ -1,3 +1,4 @@
+import { Appointment } from "./Appointment";
 import { Landlord } from "./Landlord";
 import { Offer } from "./Offer";
 
@@ -23,9 +24,9 @@ export type Contact = {
   offer: Offer;
   contactedAt: number;
   updatedAt: number;
-  visitingAppointment?: number;
   remarks?: string;
   requiredDocuments: string[];
   status: ContactStatus;
   myRating?: ContactRating;
+  appointment?: Appointment;
 };

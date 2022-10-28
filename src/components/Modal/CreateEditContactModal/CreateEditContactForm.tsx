@@ -5,12 +5,14 @@ import MultipleOptionInput, { Option } from '../../Input/MultipleOptionInput';
 import ExposeForm from './ExposeForm';
 import LandlordForm from './LandlordForm';
 import PropertyForm from './PropertyForm';
+import VisitingForm from './VisitingForm';
 
 
 enum CreateEditContactFormSection {
   Expose = 'expose',
   Landlord = 'landlord',
-  Offer = 'offer'
+  Offer = 'offer',
+  Appointment = 'appointment',
 }
 
 const FormSectionConfig: Record<CreateEditContactFormSection, Option<CreateEditContactFormSection> & {
@@ -34,6 +36,12 @@ const FormSectionConfig: Record<CreateEditContactFormSection, Option<CreateEditC
     icon: "home",
     label: "Property"
   },
+  [CreateEditContactFormSection.Appointment]: {
+    FormComponent: VisitingForm,
+    value: CreateEditContactFormSection.Appointment,
+    icon: "eye",
+    label: "Visiting"
+  }
 };
 
 export default function CreateEditContactForm() {

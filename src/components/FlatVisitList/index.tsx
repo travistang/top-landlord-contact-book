@@ -10,7 +10,10 @@ type Props = {
 export default function FlatVisitList({ date }: Props) {
   const appointmentsOfDay = useLiveQuery(async () => {
     return (await ContactDomain.getContacts())
-      .filter((contact) => isSameDay(contact.contactedAt, date))
+      .filter((contact) => {
+        return !!contact.appointment?.time &&
+          isSameDay(contact.appointment.time, date)
+      } )
   }, [date]);
 
   return (
